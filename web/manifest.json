@@ -1,11 +1,11 @@
 {
-    "name": "bsmart_pwa",
-    "short_name": "bsmart_pwa",
+    "name": "BSMART",
+    "short_name": "BSMART",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "BSMART web application",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
