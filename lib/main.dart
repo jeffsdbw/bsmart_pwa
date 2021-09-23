@@ -1,7 +1,11 @@
+import 'package:bsmart_pwa/screens/Dev/dev_maim_screen.dart';
+import 'package:bsmart_pwa/screens/Dsm/dsm_main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:bsmart_pwa/screens/util/login.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:splashscreen/splashscreen.dart';
+import 'package:bsmart_pwa/screens/util/main_screen.dart';
+import 'package:bsmart_pwa/screens/util/profile_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -27,6 +31,13 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: FirstActivity(),
+      routes: <String, WidgetBuilder>{
+        '/main': (BuildContext context) => MainScreen(),
+        '/profile': (BuildContext context) => ProfileScreen(),
+        '/login': (BuildContext context) => Login(),
+        '/dev': (BuildContext context) => DevMainScreen(),
+        '/dsm': (BuildContext context) => DsmMainScreen(),
+      },
     );
   }
 }
