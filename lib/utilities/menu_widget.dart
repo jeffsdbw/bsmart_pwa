@@ -116,7 +116,9 @@ class _MenuState extends State<Menu> {
                         Navigator.pushNamed(context, '/main');
                       },
                     ),
-                    Divider(),
+                    Divider(
+                      thickness: 2.0,
+                    ),
                   ],
                 ),
                 Column(
@@ -144,7 +146,7 @@ class _MenuState extends State<Menu> {
                       },
                     ),
                     Divider(
-                      thickness: 1.0,
+                      thickness: 2.0,
                     ),
                   ],
                 ),
@@ -169,9 +171,13 @@ class _MenuState extends State<Menu> {
                                   ),
                                 ),
                                 title: Text(modules[position]['name'],
-                                    style: TextStyle(fontSize: 20.0)),
+                                    style: TextStyle(
+                                      fontSize: 20.0,
+                                      fontWeight: FontWeight.w600,
+                                    )),
                                 subtitle: Text(modules[position]['info'],
                                     style: TextStyle(fontSize: 15.0)),
+                                trailing: Icon(Icons.keyboard_arrow_right),
                                 onTap: () {
                                   Navigator.of(context).pop();
                                   Navigator.pushNamed(
@@ -179,7 +185,7 @@ class _MenuState extends State<Menu> {
                                 },
                               ),
                               Divider(
-                                thickness: 1.0,
+                                thickness: 2.0,
                               ),
                             ],
                           );

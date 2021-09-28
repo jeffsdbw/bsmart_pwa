@@ -1,5 +1,7 @@
-import 'package:flutter/material.dart';
+//import 'package:bsmart_pwa/utilities/menu_widget.dart';
 import 'package:bsmart_pwa/utilities/menu_widget.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
 class DsmMainScreen extends StatefulWidget {
   const DsmMainScreen({Key? key}) : super(key: key);
@@ -13,36 +15,15 @@ class _DsmMainScreenState extends State<DsmMainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Developer'),
+        title: Text('District Manager Application'),
         centerTitle: true,
       ),
-      body: Column(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
+      body: SafeArea(
+        child: ListView(children: [
           Center(
-            child: Text(
-              'Software Developer',
-              style: TextStyle(
-                  fontSize: 40.0,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.blue[800]),
-            ),
+            child: (Text('Hell World!')),
           ),
-          SizedBox(
-            height: 40.0,
-          ),
-          Image.asset('assets/images/u08.png'),
-          SizedBox(
-            height: 40.0,
-          ),
-          Text(
-            'Comming Soon!',
-            style: TextStyle(
-                color: Colors.red, fontSize: 30.0, fontWeight: FontWeight.bold),
-          ),
-        ],
+        ]),
       ),
       drawer: Menu(),
     );
