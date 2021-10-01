@@ -114,8 +114,35 @@ class _LoginState extends State<Login> {
           prefs.setString('server', bwWebserviceUrl);
         }
 
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => MainScreen()));
+        /*
+        print('url:' +
+            bwWebserviceUrl +
+            'getInitScreen.php?user=' +
+            userID +
+            '&appid=BSMART');
+        */
+
+        final response2 = await http.post(
+          Uri.parse(bwWebserviceUrl +
+              'getInitScreen.php?user=' +
+              userID +
+              '&appid=BSMART'),
+        );
+
+        if (response2.statusCode == 200) {
+          Map<String, dynamic> map2 = jsonDecode(response2.body);
+          // ignore: non_constant_identifier_names
+          String InitPath = map2['results']['init'];
+          //print('InitPath : $InitPath');
+          Navigator.pushNamed(context, InitPath);
+          //Navigator.pushReplacement(
+          //    context, MaterialPageRoute(builder: (context) => MainScreen()));
+        } else {
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => MainScreen()));
+        }
+        //Navigator.pushReplacement(
+        //    context, MaterialPageRoute(builder: (context) => MainScreen()));
       } else {
         String vMsg = map['results']['message'];
         showDialog<Null>(

@@ -1,5 +1,5 @@
+import 'package:bsmart_pwa/utilities/menu_widget.dart';
 import 'package:flutter/material.dart';
-//import 'package:bsmart_pwa/utilities/menu_widget.dart';
 
 class DevMainScreen extends StatefulWidget {
   const DevMainScreen({Key? key}) : super(key: key);
@@ -147,7 +147,7 @@ class _DevMainScreenState extends State<DevMainScreen> {
           ),
         ],
       ),
-      //drawer: Menu(),
+      drawer: Menu(),
     );
   }
 }
