@@ -59,6 +59,7 @@ class _DsmMainScreenState extends State<DsmMainScreen> {
         rsdName = map['results']['rsd_name'];
         rsmCode = map['results']['rsm_code'];
         rsmName = map['results']['rsm_name'];
+        prefs.setString('locCode', districtCode);
         setState(() {});
       }
       getData = true;
@@ -84,9 +85,38 @@ class _DsmMainScreenState extends State<DsmMainScreen> {
     getUserInfo();
   }
 */
+
+  Card buildCard(String cTitle, String cSubTitle, String routePath) {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ListTile(
+            leading: Icon(Icons.list),
+            title: Text(
+              cTitle,
+              style:
+                  TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+            ),
+            subtitle: Text(cSubTitle),
+            onTap: () {
+              print(cTitle);
+              Navigator.pushNamed(context, routePath);
+            }),
+      ),
+      elevation: 8.0,
+      shadowColor: Colors.black,
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getUserInfo();
+  }
+
   @override
   Widget build(BuildContext context) {
-    getUserInfo();
+    //getUserInfo();
     //double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -239,6 +269,38 @@ class _DsmMainScreenState extends State<DsmMainScreen> {
               ),
             ),
             SliverList(
+              delegate: SliverChildListDelegate(
+                [
+                  buildCard('ข้อมูลสมาชิก', 'รายชื่อและรายละเอียดของสมาชิก',
+                      '/dsmSearchRep'),
+                  buildCard(
+                      'District Campaign Sales',
+                      'ข้อมูลสรุปผลงานต่างๆ ตามรอบจำหน่าย ของผู้จัดการเขต',
+                      '/dsmEmptyPage'),
+                  /*buildCard(
+                      'เมนูที่ 3', 'รายละเอียดรของเมนูที่ 3', '/dsmEmptyPage'),
+                  buildCard(
+                      'เมนูที่ 4', 'รายละเอียดรของเมนูที่ 4', '/dsmEmptyPage'),
+                  buildCard(
+                      'เมนูที่ 5', 'รายละเอียดรของเมนูที่ 5', '/dsmEmptyPage'),
+                  buildCard(
+                      'เมนูที่ 6', 'รายละเอียดรของเมนูที่ 6', '/dsmEmptyPage'),
+                  buildCard(
+                      'เมนูที่ 7', 'รายละเอียดรของเมนูที่ 7', '/dsmEmptyPage'),
+                  buildCard(
+                      'เมนูที่ 8', 'รายละเอียดรของเมนูที่ 8', '/dsmEmptyPage'),
+                  buildCard(
+                      'เมนูที่ 9', 'รายละเอียดรของเมนูที่ 9', '/dsmEmptyPage'),
+                  buildCard('เมนูที่ 10', 'รายละเอียดรของเมนูที่ 10',
+                      '/dsmEmptyPage'),
+                  buildCard('เมนูที่ 11', 'รายละเอียดรของเมนูที่ 11',
+                      '/dsmEmptyPage'),
+                  buildCard('เมนูที่ 12', 'รายละเอียดรของเมนูที่ 12',
+                      '/dsmEmptyPage'),*/
+                ],
+              ),
+            ),
+            /*SliverList(
               delegate: SliverChildBuilderDelegate(
                 (BuildContext context, int index) {
                   return Card(
@@ -256,7 +318,33 @@ class _DsmMainScreenState extends State<DsmMainScreen> {
                 },
                 childCount: 1000, // 1000 list items
               ),
-            ),
+            ),*/
+            /*SliverFillRemaining(
+              child: Column(
+                children: [
+                  buildCard('ข้อมูลสมาชิก', 'รายชื่อและรายละเอียดของสมาชิก',
+                      '/dsmSearchRep'),
+                  buildCard(
+                      'District Campaign Sales',
+                      'ข้อมูลสรุปผลงานต่างๆ ตามรอบจำหน่าย ของผู้จัดการเขต',
+                      '/salesRecord'),
+                  buildCard(
+                      'เมนูที่ 3', 'รายละเอียดรของเมนูที่ 3', '/salesRecord'),
+                  buildCard(
+                      'เมนูที่ 4', 'รายละเอียดรของเมนูที่ 4', '/salesRecord'),
+                  buildCard(
+                      'เมนูที่ 5', 'รายละเอียดรของเมนูที่ 5', '/salesRecord'),
+                  buildCard(
+                      'เมนูที่ 6', 'รายละเอียดรของเมนูที่ 6', '/salesRecord'),
+                  buildCard(
+                      'เมนูที่ 7', 'รายละเอียดรของเมนูที่ 7', '/salesRecord'),
+                  buildCard(
+                      'เมนูที่ 8', 'รายละเอียดรของเมนูที่ 8', '/salesRecord'),
+                  buildCard(
+                      'เมนูที่ 9', 'รายละเอียดรของเมนูที่ 9', '/salesRecord'),
+                ],
+              ),
+            ),*/
           ],
         ),
       ),
