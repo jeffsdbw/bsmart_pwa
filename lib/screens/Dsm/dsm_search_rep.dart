@@ -15,6 +15,7 @@ class DsmSearchRep extends StatefulWidget {
 String locCode = '';
 
 class _DsmSearchRepState extends State<DsmSearchRep> {
+  var _controller = TextEditingController();
   String server = bwWebserviceUrl;
   List<Map<String, dynamic>> _allUsers = [
     {"id": 1, "name": "Andy", "age": 29},
@@ -108,9 +109,7 @@ class _DsmSearchRepState extends State<DsmSearchRep> {
             color: Colors.white, borderRadius: BorderRadius.circular(5)),
         child: Center(
           child: TextField(
-            /*onChanged: (text) {
-              print('First text field: $text');
-            },*/
+            controller: _controller,
             onChanged: (value) => _runFilter(value),
             decoration: InputDecoration(
                 prefixIcon: Icon(Icons.search),
@@ -118,6 +117,8 @@ class _DsmSearchRepState extends State<DsmSearchRep> {
                   icon: Icon(Icons.clear),
                   onPressed: () {
                     /* Clear the search field */
+                    _controller.clear();
+                    _runFilter('');
                   },
                 ),
                 hintText: 'Search...',
