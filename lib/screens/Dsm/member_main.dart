@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:ui';
 
 import 'package:bsmart_pwa/utilities/constants.dart';
 import 'package:flutter/material.dart';
@@ -7,14 +6,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
 
-class SalesRecordMain extends StatefulWidget {
-  const SalesRecordMain({Key? key}) : super(key: key);
+class MemberMain extends StatefulWidget {
+  const MemberMain({Key? key}) : super(key: key);
 
   @override
-  _SalesRecordMainState createState() => _SalesRecordMainState();
+  _MemberMainState createState() => _MemberMainState();
 }
 
-class _SalesRecordMainState extends State<SalesRecordMain> {
+class _MemberMainState extends State<MemberMain> {
   late SharedPreferences prefs;
   String server = bwWebserviceUrl;
   String repSeq = '-';
@@ -104,10 +103,6 @@ class _SalesRecordMainState extends State<SalesRecordMain> {
         ),
         Scaffold(
           backgroundColor: Colors.transparent,
-          appBar: AppBar(
-            title: Text('Sales Record'),
-            centerTitle: true,
-          ),
           body: Container(
             width: screenWidth,
             height: screenHeight,
@@ -183,72 +178,6 @@ class _SalesRecordMainState extends State<SalesRecordMain> {
                             mainAxisSize: MainAxisSize.max,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              /*SizedBox(
-                                height: 8.0,
-                              ),
-                              Row(
-                                children: [
-                                  Expanded(
-                                      flex: 1,
-                                      child: Text(
-                                        'ยอดหนี้ค้างชำระ',
-                                        textAlign: TextAlign.left,
-                                      )),
-                                  Expanded(
-                                      flex: 1,
-                                      child: Text(
-                                        _allInfo[0]['ar_balance'],
-                                        textAlign: TextAlign.right,
-                                        style: TextStyle(
-                                            color: arRed
-                                                ? Colors.red
-                                                : Colors.green,
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.bold),
-                                      )),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 8.0,
-                              ),
-                              Row(
-                                children: [
-                                  Expanded(
-                                    flex: 1,
-                                    child: Row(
-                                      children: [
-                                        Expanded(flex: 1, child: Text('LOA')),
-                                        Expanded(
-                                            flex: 1,
-                                            child: Text(_allInfo[0]['loa'])),
-                                      ],
-                                    ),
-                                  ),
-                                  Expanded(
-                                    flex: 1,
-                                    child: Row(
-                                      children: [
-                                        Expanded(
-                                            flex: 1, child: Text('แอปยุพิน')),
-                                        Expanded(
-                                            flex: 1,
-                                            child: Text(
-                                              _allInfo[0]['yupin_register'],
-                                              style: TextStyle(
-                                                color: yupinRegister
-                                                    ? Colors.green
-                                                    : Colors.red,
-                                              ),
-                                              textAlign: TextAlign.right,
-                                            )),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 8.0,
-                              ), */
                               Row(
                                 children: [
                                   Expanded(
@@ -301,92 +230,6 @@ class _SalesRecordMainState extends State<SalesRecordMain> {
                                   ),
                                 ],
                               ),
-                              /*SizedBox(
-                                height: 8.0,
-                              ),
-                              Row(
-                                children: [
-                                  Expanded(
-                                      flex: 1,
-                                      child: Container(
-                                        padding: EdgeInsets.only(
-                                            top: 8.0, bottom: 8.0),
-                                        color: Color(0xFFFFB266),
-                                        child: Column(
-                                          children: [
-                                            Text('Rep. Status'),
-                                            Text(
-                                              _allInfo[0]['rep_status_code'],
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 20),
-                                            ),
-                                            Text(
-                                                _allInfo[0]['rep_status_desc']),
-                                          ],
-                                        ),
-                                      )),
-                                  Expanded(
-                                      flex: 1,
-                                      child: Container(
-                                        padding: EdgeInsets.only(
-                                            top: 8.0, bottom: 8.0),
-                                        color: Color(0xFFFFFF66),
-                                        child: Column(
-                                          children: [
-                                            Text('AR Status'),
-                                            Text(
-                                              _allInfo[0]['ar_status_code'],
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 20),
-                                            ),
-                                            Text(_allInfo[0]['ar_status_desc']),
-                                          ],
-                                        ),
-                                      )),
-                                  Expanded(
-                                      flex: 1,
-                                      child: Container(
-                                        padding: EdgeInsets.only(
-                                            top: 8.0, bottom: 8.0),
-                                        color: Color(0xFFB2FF66),
-                                        child: Column(
-                                          children: [
-                                            Text('Order Status'),
-                                            Text(
-                                              _allInfo[0]['order_status_code'],
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 20),
-                                            ),
-                                            Text(_allInfo[0]
-                                                ['order_status_desc']),
-                                          ],
-                                        ),
-                                      )),
-                                  Expanded(
-                                      flex: 1,
-                                      child: Container(
-                                        padding: EdgeInsets.only(
-                                            top: 8.0, bottom: 8.0),
-                                        color: Color(0xFF66FF66),
-                                        child: Column(
-                                          children: [
-                                            Text('Appt. Status'),
-                                            Text(
-                                              _allInfo[0]['appt_status_code'],
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 20),
-                                            ),
-                                            Text(_allInfo[0]
-                                                ['appt_status_desc']),
-                                          ],
-                                        ),
-                                      )),
-                                ],
-                              ),*/
                               SizedBox(
                                 height: 8.0,
                               ),
@@ -543,123 +386,13 @@ class _SalesRecordMainState extends State<SalesRecordMain> {
                           ),
                         )),
                       )),
-                  /*Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Card(
-                      color: Colors.white,
-                      child: Container(
-                        width: screenWidth * 0.8,
-                        color: Colors.white,
-                        child: Column(
-                          children: [
-                            Text(
-                              'Rep. Info!',
-                              style: TextStyle(
-                                  fontSize: 40,
-                                  color: Colors.blueAccent,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            Text(
-                              'Rep. Info!',
-                              style: TextStyle(
-                                  fontSize: 40,
-                                  color: Colors.blueAccent,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            Text(
-                              'Rep. Info!',
-                              style: TextStyle(
-                                  fontSize: 40,
-                                  color: Colors.blueAccent,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            Text(
-                              'Rep. Info!',
-                              style: TextStyle(
-                                  fontSize: 40,
-                                  color: Colors.blueAccent,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            Text(
-                              'Rep. Info!',
-                              style: TextStyle(
-                                  fontSize: 40,
-                                  color: Colors.blueAccent,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            Text(
-                              'Rep. Info!',
-                              style: TextStyle(
-                                  fontSize: 40,
-                                  color: Colors.blueAccent,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            Text(
-                              'Rep. Info!',
-                              style: TextStyle(
-                                  fontSize: 40,
-                                  color: Colors.blueAccent,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            Text(
-                              'Rep. Info!',
-                              style: TextStyle(
-                                  fontSize: 40,
-                                  color: Colors.blueAccent,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        ),
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50),
-                      ),
-                      elevation: 8.0,
-                      shadowColor: Colors.black,
-                    ),
-                  )*/
                 ],
               ),
             ),
           ),
         ),
-        /*Container(width: 100, height: 150, color: Colors.red),
-        Container(width: 150, height: 50, color: Colors.green),
-        Positioned(
-          top: 20,
-          bottom: 20,
-          left: 130,
-          right: 20,
-          child: Container(
-            color: Colors.white,
-            child: CustomPaint(
-              painter: CurvePainter(),
-            ),
-          ),
-        ),*/
       ],
     );
-    /*
-    return Container(
-      color: Colors.white,
-      child: CustomPaint(
-        painter: CurvePainter(),
-      ),
-    );*/
-    /*return Scaffold(
-      appBar: AppBar(
-        title: Text('Sales Record'),
-        centerTitle: true,
-      ),
-      body: Center(
-        child: Column(
-          children: [
-            Text(_allInfo[0]['rep_code']),
-            Text(_allInfo.toString()),
-          ],
-        ),
-      ),
-    );*/
   }
 }
 

@@ -99,7 +99,7 @@ class _DsmMainScreenState extends State<DsmMainScreen> {
             ),
             subtitle: Text(cSubTitle),
             onTap: () {
-              print(cTitle);
+              //print(cTitle);
               Navigator.pushNamed(context, routePath);
             }),
       ),

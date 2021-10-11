@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:bsmart_pwa/screens/Dsm/rep_info_main.dart';
+//import 'package:bsmart_pwa/screens/Dsm/sales_record_main.dart';
 import 'package:bsmart_pwa/utilities/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -18,16 +20,86 @@ class _DsmSearchRepState extends State<DsmSearchRep> {
   var _controller = TextEditingController();
   String server = bwWebserviceUrl;
   List<Map<String, dynamic>> _allUsers = [
-    {"id": 1, "name": "Andy", "age": 29},
-    {"id": 2, "name": "Aragon", "age": 40},
-    {"id": 3, "name": "Bob", "age": 5},
-    {"id": 4, "name": "Barbara", "age": 35},
-    {"id": 5, "name": "Candy", "age": 21},
-    {"id": 6, "name": "Colin", "age": 55},
-    {"id": 7, "name": "Audra", "age": 30},
-    {"id": 8, "name": "Banana", "age": 14},
-    {"id": 9, "name": "Caversky", "age": 100},
-    {"id": 10, "name": "Becky", "age": 32},
+    {
+      "seq": "1",
+      "code": "001",
+      "name": "Andy",
+      "nickname": "Nick",
+      "status": "AC",
+      "search": "Search Text"
+    },
+    {
+      "seq": "2",
+      "code": "002",
+      "name": "Aragon",
+      "nickname": "Nick",
+      "status": "AC",
+      "search": "Search Text"
+    },
+    {
+      "seq": "3",
+      "code": "003",
+      "name": "Bob",
+      "nickname": "Nick",
+      "status": "AC",
+      "search": "Search Text"
+    },
+    {
+      "seq": "4",
+      "code": "004",
+      "name": "Barbara",
+      "nickname": "Nick",
+      "status": "AC",
+      "search": "Search Text"
+    },
+    {
+      "seq": "5",
+      "code": "005",
+      "name": "Candy",
+      "nickname": "Nick",
+      "status": "AC",
+      "search": "Search Text"
+    },
+    {
+      "seq": "6",
+      "code": "006",
+      "name": "Colin",
+      "nickname": "Nick",
+      "status": "AC",
+      "search": "Search Text"
+    },
+    {
+      "seq": "7",
+      "code": "007",
+      "name": "Audra",
+      "nickname": "Nick",
+      "status": "AC",
+      "search": "Search Text"
+    },
+    {
+      "seq": "8",
+      "code": "008",
+      "name": "Banana",
+      "nickname": "Nick",
+      "status": "AC",
+      "search": "Search Text"
+    },
+    {
+      "seq": "9",
+      "code": "009",
+      "name": "Caversky",
+      "nickname": "Nick",
+      "status": "AC",
+      "search": "Search Text"
+    },
+    {
+      "seq": "10",
+      "code": "010",
+      "name": "Becky",
+      "nickname": "Nick",
+      "status": "AC",
+      "search": "Search Text"
+    },
   ];
 
   late SharedPreferences prefs;
@@ -86,8 +158,9 @@ class _DsmSearchRepState extends State<DsmSearchRep> {
       results = _allUsers;
     } else {
       results = _allUsers
-          .where((user) =>
-              user["name"].toLowerCase().contains(enteredKeyword.toLowerCase()))
+          .where((user) => user["search"]
+              .toLowerCase()
+              .contains(enteredKeyword.toLowerCase()))
           .toList();
       // we use the toLowerCase() method to make it case-insensitive
     }
@@ -135,19 +208,46 @@ class _DsmSearchRepState extends State<DsmSearchRep> {
                   ? ListView.builder(
                       itemCount: _foundUsers.length,
                       itemBuilder: (context, index) => Card(
-                        key: ValueKey(_foundUsers[index]["id"]),
-                        color: Colors.amberAccent,
-                        elevation: 4,
-                        margin: EdgeInsets.symmetric(vertical: 10),
-                        child: ListTile(
-                          leading: Text(
-                            _foundUsers[index]["id"].toString(),
-                            style: TextStyle(fontSize: 24),
+                        key: ValueKey(_foundUsers[index]["seq"]),
+                        //color: Colors.amberAccent,
+                        //margin: EdgeInsets.symmetric(vertical: 4),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ListTile(
+                            /*leading: Text(
+                              _foundUsers[index]["status"],
+                              style: TextStyle(fontSize: 24),
+                            ),*/
+                            leading: CircleAvatar(
+                              backgroundColor: Colors.grey,
+                              radius: 20.0,
+                              child: Text(
+                                _foundUsers[index]["status"],
+                                style: TextStyle(
+                                    //fontWeight: FontWeight.bold,
+                                    fontSize: 15.0,
+                                    color: Colors.white),
+                              ),
+                            ),
+                            title: Text(_foundUsers[index]['name']),
+                            subtitle: Text(
+                                '${_foundUsers[index]["code"]} (${_foundUsers[index]["nickname"] ?? '-'})'),
+                            trailing: Icon(Icons.more_vert),
+                            onTap: () {
+                              print(_foundUsers[index]['seq']);
+                              prefs.setString(
+                                  'repSeq', _foundUsers[index]['seq']);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        RepInfoMain()), //SalesRecordMain()),
+                              );
+                            },
                           ),
-                          title: Text(_foundUsers[index]['name']),
-                          subtitle: Text(
-                              '${_foundUsers[index]["age"].toString()} years old'),
                         ),
+                        elevation: 8.0,
+                        shadowColor: Colors.black,
                       ),
                     )
                   : Text(
