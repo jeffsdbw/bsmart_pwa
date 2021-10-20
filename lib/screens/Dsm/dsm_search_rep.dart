@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ui';
 
 import 'package:bsmart_pwa/screens/Dsm/rep_info_main.dart';
 //import 'package:bsmart_pwa/screens/Dsm/sales_record_main.dart';
@@ -15,6 +16,7 @@ class DsmSearchRep extends StatefulWidget {
 }
 
 String locCode = '';
+bool checkRepList = false;
 
 class _DsmSearchRepState extends State<DsmSearchRep> {
   var _controller = TextEditingController();
@@ -127,6 +129,7 @@ class _DsmSearchRepState extends State<DsmSearchRep> {
       //    (tagsJson != null ? List.from(tagsJson) : null)!;
       //print(_allUsers);
       setState(() {
+        checkRepList = true;
         _foundUsers = _allUsers;
       });
     } else {
@@ -199,65 +202,110 @@ class _DsmSearchRepState extends State<DsmSearchRep> {
           ),
         ),
       )),
-      body: Padding(
-        padding: const EdgeInsets.all(10),
-        child: Column(
-          children: [
-            Expanded(
-              child: _foundUsers.length > 0
-                  ? ListView.builder(
-                      itemCount: _foundUsers.length,
-                      itemBuilder: (context, index) => Card(
-                        key: ValueKey(_foundUsers[index]["seq"]),
-                        //color: Colors.amberAccent,
-                        //margin: EdgeInsets.symmetric(vertical: 4),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: ListTile(
-                            /*leading: Text(
+      body: checkRepList
+          ? Padding(
+              padding: const EdgeInsets.all(10),
+              child: Column(
+                children: [
+                  Expanded(
+                    child: _foundUsers.length > 0
+                        ? ListView.builder(
+                            itemCount: _foundUsers.length,
+                            itemBuilder: (context, index) => Card(
+                              key: ValueKey(_foundUsers[index]["seq"]),
+                              //color: Colors.amberAccent,
+                              //margin: EdgeInsets.symmetric(vertical: 4),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: ListTile(
+                                  /*leading: Text(
                               _foundUsers[index]["status"],
                               style: TextStyle(fontSize: 24),
                             ),*/
-                            leading: CircleAvatar(
-                              backgroundColor: Colors.grey,
-                              radius: 20.0,
-                              child: Text(
-                                _foundUsers[index]["status"],
-                                style: TextStyle(
-                                    //fontWeight: FontWeight.bold,
-                                    fontSize: 15.0,
-                                    color: Colors.white),
+                                  leading: CircleAvatar(
+                                    backgroundColor: Colors.grey,
+                                    radius: 20.0,
+                                    child: Text(
+                                      _foundUsers[index]["status"],
+                                      style: TextStyle(
+                                          //fontWeight: FontWeight.bold,
+                                          fontSize: 15.0,
+                                          color: Colors.white),
+                                    ),
+                                  ),
+                                  title: Text(_foundUsers[index]['name']),
+                                  subtitle: Text(
+                                      '${_foundUsers[index]["code"]} (${_foundUsers[index]["nickname"] ?? '-'})'),
+                                  trailing: Icon(Icons.more_vert),
+                                  onTap: () {
+                                    print(_foundUsers[index]['seq']);
+                                    prefs.setString(
+                                        'repSeq', _foundUsers[index]['seq']);
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              RepInfoMain()), //SalesRecordMain()),
+                                    );
+                                  },
+                                ),
                               ),
+                              elevation: 8.0,
+                              shadowColor: Colors.black,
                             ),
-                            title: Text(_foundUsers[index]['name']),
-                            subtitle: Text(
-                                '${_foundUsers[index]["code"]} (${_foundUsers[index]["nickname"] ?? '-'})'),
-                            trailing: Icon(Icons.more_vert),
-                            onTap: () {
-                              print(_foundUsers[index]['seq']);
-                              prefs.setString(
-                                  'repSeq', _foundUsers[index]['seq']);
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        RepInfoMain()), //SalesRecordMain()),
-                              );
-                            },
+                          )
+                        : Center(
+                            child: Text(
+                              'ไม่พบข้อมูลที่ค้นหา',
+                              style: TextStyle(fontSize: 24),
+                            ),
                           ),
+                  ),
+                ],
+              ),
+            )
+          : Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: Text(
+                          'กำลังโหลดข้อมูล',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 24.0, fontWeight: FontWeight.bold),
                         ),
-                        elevation: 8.0,
-                        shadowColor: Colors.black,
-                      ),
-                    )
-                  : Text(
-                      'No results found',
-                      style: TextStyle(fontSize: 24),
-                    ),
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: 32.0,
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: Text(
+                          'กรุณารอสักครู่',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 24.0, fontWeight: FontWeight.bold),
+                        ),
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: 32.0,
+                  ),
+                  CircularProgressIndicator(),
+                ],
+              ),
             ),
-          ],
-        ),
-      ),
     );
   }
 }
