@@ -152,63 +152,6 @@ class _MemberMainState extends State<MemberMain> {
         ),
       );
     }
-    /*Widget header() {
-      return Container(
-        padding: EdgeInsets.only(top: 8.0),
-        width: screenWidth,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Row(
-              children: [
-                Expanded(
-                    flex: 1,
-                    child: Container(
-                      alignment: Alignment.center,
-                      child: Icon(
-                        Icons.account_circle,
-                        size: 120,
-                        color: Colors.white,
-                      ),
-                    )),
-                Expanded(
-                    flex: 2,
-                    child: Container(
-                      alignment: Alignment.center,
-                      child: Text(
-                        _allInfo[0]['rep_code'],
-                        style: TextStyle(
-                            fontSize: 35.0,
-                            color: Colors.amber,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    )),
-              ],
-            ),
-            SizedBox(
-              height: 8.0,
-            ),
-            Row(
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: Text(
-                    '${_allInfo[0]['rep_name']} $dispNickName',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      );
-    }*/
 
     Widget detail() {
       return Expanded(
@@ -369,9 +312,55 @@ class _MemberMainState extends State<MemberMain> {
                     ],
                   ),
                   SizedBox(
-                    height: 8.0,
+                    height: 4.0,
                   ),
-                  Row(
+                  Card(
+                    elevation: 4.0,
+                    shadowColor: Colors.black,
+                    child: ListTile(
+                      leading: CircleAvatar(
+                        backgroundColor: Colors.blue,
+                        radius: 20.0,
+                        child: Icon(
+                          Icons.call,
+                          color: Colors.white,
+                        ),
+                      ),
+                      title: Text(
+                        'เบอร์โทรศัพท์ : ' + _allInfo[0]['mobile_no'],
+                        textAlign: TextAlign.center,
+                      ),
+                      onTap: () {
+                        launch("tel://029170000");
+                        //launch("tel://"+_allInfo[0]['mobile_no']);
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    height: 4.0,
+                  ),
+                  Card(
+                    elevation: 4.0,
+                    shadowColor: Colors.black,
+                    child: yupinRegister
+                        ? ListTile(
+                            leading: CircleAvatar(
+                              backgroundColor: Colors.white,
+                              radius: 20.0,
+                              child:
+                                  Image.asset('assets/images/yupin_logo.png'),
+                            ),
+                            title: Text(
+                              'สถานะยุพิน : ' +
+                                  _allInfo[0]['yupin_status'] +
+                                  ', Segment : ' +
+                                  _allInfo[0]['yupin_segment'],
+                              textAlign: TextAlign.center,
+                            ),
+                          )
+                        : Text(' '),
+                  ),
+                  /*Row(
                     children: [
                       Expanded(
                         flex: 1,
@@ -413,7 +402,7 @@ class _MemberMainState extends State<MemberMain> {
                             : Text(' '),
                       ),
                     ],
-                  ),
+                  ),*/
                   SizedBox(
                     height: 8.0,
                   ),
@@ -499,32 +488,6 @@ class _MemberMainState extends State<MemberMain> {
                   SizedBox(
                     height: 8.0,
                   ),
-                  /*Row(
-                    children: [
-                      Expanded(
-                          flex: 1,
-                          child: Text('Rep. Segment :' + _allInfo[0]['ds_status'])),
-                      Expanded(
-                          flex: 1,
-                          child: Text('Mistine Segment :' +
-                              _allInfo[0]['mistine_segment'])),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 4.0,
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                          flex: 1,
-                          child: Text(
-                              'Friday Segment :' + _allInfo[0]['friday_segment'])),
-                      Expanded(
-                          flex: 1,
-                          child: Text(
-                              'Faris Segment :' + _allInfo[0]['faris_segment'])),
-                    ],
-                  ),*/
                 ],
               ),
             ),
