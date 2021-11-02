@@ -90,7 +90,7 @@ class _AddressMainState extends State<AddressMain> {
                             ),
                           ),
                           decoration: BoxDecoration(
-                            color: Colors.blue,
+                            color: Colors.orange,
                             borderRadius: BorderRadius.only(
                               topRight: Radius.circular(20.0),
                               //bottomRight: Radius.circular(20.0),
@@ -103,8 +103,11 @@ class _AddressMainState extends State<AddressMain> {
                           width: double.infinity,
                           child: Center(
                             child: Padding(
-                              padding:
-                                  const EdgeInsets.only(top: 8.0, bottom: 24.0),
+                              padding: const EdgeInsets.only(
+                                  top: 8.0,
+                                  bottom: 24.0,
+                                  left: 8.0,
+                                  right: 8.0),
                               child: Text(
                                 _allInfo[0]['delivery'],
                                 style: TextStyle(
@@ -150,7 +153,7 @@ class _AddressMainState extends State<AddressMain> {
                             ),
                           ),
                           decoration: BoxDecoration(
-                            color: Colors.blue,
+                            color: Colors.orange,
                             borderRadius: BorderRadius.only(
                               topRight: Radius.circular(20.0),
                               //bottomRight: Radius.circular(20.0),
@@ -163,8 +166,11 @@ class _AddressMainState extends State<AddressMain> {
                           width: double.infinity,
                           child: Center(
                             child: Padding(
-                              padding:
-                                  const EdgeInsets.only(top: 8.0, bottom: 24.0),
+                              padding: const EdgeInsets.only(
+                                  top: 8.0,
+                                  bottom: 24.0,
+                                  left: 8.0,
+                                  right: 8.0),
                               child: Text(
                                 _allInfo[0]['register'],
                                 style: TextStyle(

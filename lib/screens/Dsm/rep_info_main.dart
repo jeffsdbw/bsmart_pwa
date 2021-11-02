@@ -15,7 +15,6 @@ class RepInfoMain extends StatefulWidget {
 
 class _RepInfoMainState extends State<RepInfoMain> {
   int _selectedIndex = 0;
-  String _title = "Member Infomation V2";
   bool _isIos = false, _isIPhoneX = false, _checkIPhoneX = false;
   List<Widget> _pageWidget = <Widget>[
     MemberMain(),
@@ -58,7 +57,6 @@ class _RepInfoMainState extends State<RepInfoMain> {
     _checkIPhoneX = true;
     if (defaultTargetPlatform.toString().toLowerCase().contains("ios") ==
         true) {
-      _title = "ios";
       _isIos = true;
     }
     setState(() {});
@@ -80,11 +78,8 @@ class _RepInfoMainState extends State<RepInfoMain> {
       if (_isIos == true) {
         var size = MediaQuery.of(context).size;
         if (size.height >= 812.0 || size.width >= 812.0) {
-          _title = "IPhoneX";
           _isIPhoneX = true;
-        } else {
-          _title = "Not IPhoneX!!!";
-        }
+        } else {}
       }
     }
     return _isIPhoneX
@@ -95,7 +90,7 @@ class _RepInfoMainState extends State<RepInfoMain> {
               child: SafeArea(
                 child: Scaffold(
                   appBar: AppBar(
-                    title: Text(_title),
+                    title: Text('Member Information'),
                     centerTitle: true,
                   ),
                   body: _pageWidget.elementAt(_selectedIndex),
@@ -113,7 +108,7 @@ class _RepInfoMainState extends State<RepInfoMain> {
         : SafeArea(
             child: Scaffold(
               appBar: AppBar(
-                title: Text(_title),
+                title: Text('Member Information'),
                 centerTitle: true,
               ),
               body: _pageWidget.elementAt(_selectedIndex),

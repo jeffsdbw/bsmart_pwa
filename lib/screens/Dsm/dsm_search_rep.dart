@@ -238,7 +238,8 @@ class _DsmSearchRepState extends State<DsmSearchRep> {
                                       '${_foundUsers[index]["code"]} (${_foundUsers[index]["nickname"] ?? '-'})'),
                                   trailing: Icon(Icons.more_vert),
                                   onTap: () {
-                                    print(_foundUsers[index]['seq']);
+                                    print('Rep. Seq : ' +
+                                        _foundUsers[index]['seq']);
                                     prefs.setString(
                                         'repSeq', _foundUsers[index]['seq']);
                                     Navigator.push(
