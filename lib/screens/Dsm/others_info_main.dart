@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:ui';
 
+import 'package:bsmart_pwa/screens/util/loading_widget.dart';
 import 'package:bsmart_pwa/utilities/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -173,48 +174,7 @@ class _OthersInfoMainState extends State<OthersInfoMain> {
                     style: TextStyle(fontSize: 24),
                   ),
                 )
-          : Center(
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        flex: 1,
-                        child: Text(
-                          'กำลังโหลดข้อมูล',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 24.0, fontWeight: FontWeight.bold),
-                        ),
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    height: 32.0,
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        flex: 1,
-                        child: Text(
-                          'กรุณารอสักครู่',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 24.0, fontWeight: FontWeight.bold),
-                        ),
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    height: 32.0,
-                  ),
-                  CircularProgressIndicator(),
-                ],
-              ),
-            ),
+          : loadingWidget(),
     );
   }
 }

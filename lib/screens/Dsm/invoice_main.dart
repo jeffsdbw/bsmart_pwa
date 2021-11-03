@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:ui';
 
+import 'package:bsmart_pwa/screens/Dsm/invoice_detail.dart';
+import 'package:bsmart_pwa/screens/util/loading_widget.dart';
 import 'package:http/http.dart' as http;
 import 'package:bsmart_pwa/utilities/constants.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +35,9 @@ class _InvoiceMainState extends State<InvoiceMain> {
       "nature_sign": "x",
       "doc_status": "x",
       "camp_code": "x",
-      "qry": "x"
+      "qry": "x",
+      "trans_year": "x",
+      "trans_group": "x"
     },
   ];
 
@@ -79,7 +83,9 @@ class _InvoiceMainState extends State<InvoiceMain> {
         String natureSign,
         String docStatus,
         String campCode,
-        String qry) {
+        String qry,
+        String transYear,
+        String transGroup) {
       if (docStatus == 'NORMAL') {
         checkCancel = false;
       } else {
@@ -242,7 +248,23 @@ class _InvoiceMainState extends State<InvoiceMain> {
           ),
           //trailing: Icon(Icons.more_vert),
           onTap: () {
-            print(docNo);
+            print('invYear:' +
+                transYear +
+                ', invGroup:' +
+                transGroup +
+                ', invNo:' +
+                docNo);
+            if (transGroup == '11') {
+              prefs.setString('invYear', transYear);
+              prefs.setString('invGroup', transGroup);
+              prefs.setString('invNo', docNo);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        InvoiceDetail()), //SalesRecordMain()),
+              );
+            }
           },
         ),
       ));
@@ -268,7 +290,9 @@ class _InvoiceMainState extends State<InvoiceMain> {
                                 _allInfo[index]['nature_sign'],
                                 _allInfo[index]['doc_status'],
                                 _allInfo[index]['camp_code'],
-                                _allInfo[index]['qry']),
+                                _allInfo[index]['qry'],
+                                _allInfo[index]['trans_year'],
+                                _allInfo[index]['trans_group']),
                             elevation: 8.0,
                             shadowColor: Colors.black,
                           ),
@@ -282,48 +306,7 @@ class _InvoiceMainState extends State<InvoiceMain> {
                 ),
               ],
             )
-          : Center(
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        flex: 1,
-                        child: Text(
-                          'กำลังโหลดข้อมูล',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 24.0, fontWeight: FontWeight.bold),
-                        ),
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    height: 32.0,
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        flex: 1,
-                        child: Text(
-                          'กรุณารอสักครู่',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 24.0, fontWeight: FontWeight.bold),
-                        ),
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    height: 32.0,
-                  ),
-                  CircularProgressIndicator(),
-                ],
-              ),
-            ),
+          : loadingWidget(),
     );
   }
 }
