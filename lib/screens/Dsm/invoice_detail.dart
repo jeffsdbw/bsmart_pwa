@@ -18,7 +18,7 @@ class _InvoiceDetailState extends State<InvoiceDetail> {
   late SharedPreferences prefs;
   String invYear = ' ', invGroup = ' ', invNo = ' ';
   String server = bwWebserviceUrl;
-  bool checkDocList = false;
+  bool checkDocList = false, checkCancel = false;
 
   List<Map<String, dynamic>> _hdrInfo = [
     {
@@ -69,6 +69,9 @@ class _InvoiceDetailState extends State<InvoiceDetail> {
       _hdrInfo = (jsonHdrValue != null ? List.from(jsonHdrValue) : null)!;
       //tagsJson = jsonDecode(response.body)['Detail'];
       _dtlInfo = (jsonDtlValue != null ? List.from(jsonDtlValue) : null)!;
+      if (_hdrInfo[0]['invoice_status'] != 'NORMAL') {
+        checkCancel = true;
+      }
       setState(() {
         checkDocList = true;
       });
@@ -151,9 +154,14 @@ class _InvoiceDetailState extends State<InvoiceDetail> {
                               child: Text(
                                 _hdrInfo[0]['invoice_no'],
                                 style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 40.0,
-                                    fontWeight: FontWeight.bold),
+                                  color:
+                                      checkCancel ? Colors.red : Colors.white,
+                                  fontSize: 40.0,
+                                  fontWeight: FontWeight.bold,
+                                  decoration: checkCancel
+                                      ? TextDecoration.lineThrough
+                                      : TextDecoration.none,
+                                ),
                                 textAlign: TextAlign.right,
                               ),
                             ),
@@ -162,7 +170,9 @@ class _InvoiceDetailState extends State<InvoiceDetail> {
                               child: Text(
                                 _hdrInfo[0]['invoice_status'],
                                 style: TextStyle(
-                                    color: Colors.white, fontSize: 24.0),
+                                    color:
+                                        checkCancel ? Colors.red : Colors.white,
+                                    fontSize: 24.0),
                                 textAlign: TextAlign.right,
                               ),
                             ),
@@ -183,7 +193,7 @@ class _InvoiceDetailState extends State<InvoiceDetail> {
                           child: Text(
                             _hdrInfo[0]['invoice_date'],
                             style:
-                                TextStyle(color: Colors.white, fontSize: 24.0),
+                                TextStyle(color: Colors.white, fontSize: 20.0),
                           ),
                         ),
                       )),
@@ -229,6 +239,109 @@ class _InvoiceDetailState extends State<InvoiceDetail> {
       );
     }
 
+    Widget detail() {
+      return Expanded(
+        child: _dtlInfo.length > 0
+            ? ListView.builder(
+                itemCount: _dtlInfo.length,
+                itemBuilder: (context, index) => Padding(
+                  padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                  child: Card(
+                    key: ValueKey(_dtlInfo[index].toString()),
+                    child: ListTile(
+                      leading: Container(
+                          //color: Colors.blue,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              _dtlInfo[index]['bill_code'],
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          decoration: BoxDecoration(
+                            color: Colors.blue,
+                            borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(10.0),
+                                bottomRight: Radius.circular(10.0),
+                                topLeft: Radius.circular(10.0),
+                                bottomLeft: Radius.circular(10.0)),
+                          )),
+                      title: Text(
+                        _dtlInfo[index]['bill_name'],
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      subtitle: Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Row(
+                          children: [
+                            Expanded(
+                                flex: 1,
+                                child: Text(
+                                  (_dtlInfo[index]['short_unit'] != '0'
+                                      ? 'Short ' +
+                                          _dtlInfo[index]['short_unit'] +
+                                          ' ชิ้น' +
+                                          (_dtlInfo[index]['ship_unit'] == '0'
+                                              ? ''
+                                              : 'จัดสินค้า ' +
+                                                  _dtlInfo[index]['ship_unit'] +
+                                                  ' ชิ้น')
+                                      : _dtlInfo[index]['ship_unit'] + ' ชิ้น'),
+                                )),
+                            Expanded(
+                                flex: 1,
+                                child: Text(
+                                  '฿ ' + _dtlInfo[index]['net_sales'],
+                                  textAlign: TextAlign.right,
+                                )),
+                          ],
+                        ),
+                      ),
+                    ),
+                    elevation: 8.0,
+                    shadowColor: Colors.black,
+                  ),
+                ),
+              )
+            : Center(
+                child: Text(
+                  'ไม่พบข้อมูลที่ค้นหา',
+                  style: TextStyle(fontSize: 24),
+                ),
+              ),
+      );
+
+      /*return Expanded(
+          child: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              width: 200,
+              height: 200,
+              color: Colors.amber,
+            ),
+            Container(
+              width: 200,
+              height: 200,
+              color: Colors.orange,
+            ),
+            Container(
+              width: 200,
+              height: 200,
+              color: Colors.red,
+            ),
+            Container(
+              width: 200,
+              height: 200,
+              color: Colors.green,
+            ),
+          ],
+        ),
+      ));*/
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text('รายละเอียดใบส่งของ'),
@@ -248,8 +361,9 @@ class _InvoiceDetailState extends State<InvoiceDetail> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 header(),
-                Text(_hdrInfo[0]['invoice_no']),
-                Text(_dtlInfo[0]['bill_code']),
+                detail(),
+                //Text(_hdrInfo[0]['invoice_no']),
+                //Text(_dtlInfo[0]['bill_code']),
               ],
             )
           : loadingWidget(),

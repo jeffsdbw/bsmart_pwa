@@ -127,7 +127,7 @@ class _DsmMainScreenState extends State<DsmMainScreen> {
               expandedHeight: screenHeight * 0.3,
               pinned: true,
               flexibleSpace: FlexibleSpaceBar(
-                title: Text('District Manager'),
+                title: Text('District Sales Manager'),
                 centerTitle: true,
                 background: Container(
                   padding: EdgeInsets.all(8.0),
