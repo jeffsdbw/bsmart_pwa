@@ -222,7 +222,7 @@ class _DsmSearchRepState extends State<DsmSearchRep> {
                               style: TextStyle(fontSize: 24),
                             ),*/
                                   leading: CircleAvatar(
-                                    backgroundColor: Colors.grey,
+                                    backgroundColor: Colors.blue,
                                     radius: 20.0,
                                     child: Text(
                                       _foundUsers[index]["status"],

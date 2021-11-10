@@ -1,6 +1,7 @@
 import 'package:bsmart_pwa/screens/Dev/dev_maim_screen.dart';
 import 'package:bsmart_pwa/screens/Dsm/dsm_empty_page.dart';
-import 'package:bsmart_pwa/screens/Dsm/dsm_main_screen.dart';
+import 'package:bsmart_pwa/screens/Dsm/dsm_main_portal.dart';
+//import 'package:bsmart_pwa/screens/Dsm/dsm_main_screen.dart';
 import 'package:bsmart_pwa/screens/Dsm/dsm_search_rep.dart';
 import 'package:bsmart_pwa/screens/Dsm/sales_record_main.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +40,7 @@ class MyApp extends StatelessWidget {
         '/profile': (BuildContext context) => ProfileScreen(),
         '/login': (BuildContext context) => Login(),
         '/dev': (BuildContext context) => DevMainScreen(),
-        '/dsm': (BuildContext context) => DsmMainScreen(),
+        '/dsm': (BuildContext context) => DsmMainPortal(),
         '/dsmSalesRecord': (BuildContext context) => SalesRecordMain(),
         '/dsmSearchRep': (BuildContext context) => DsmSearchRep(),
         '/dsmEmptyPage': (BuildContext context) => DsmEmptyPage(),
