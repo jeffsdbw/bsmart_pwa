@@ -147,6 +147,7 @@ class _DsmSearchRepState extends State<DsmSearchRep> {
   @override
   initState() {
     // at the beginning, all users are shown
+    checkRepList = false;
     getPrefs();
     _foundUsers = _allUsers;
     super.initState();
