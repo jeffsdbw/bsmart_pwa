@@ -242,6 +242,8 @@ class _DsmSearchRepState extends State<DsmSearchRep> {
                                         _foundUsers[index]['seq']);
                                     prefs.setString(
                                         'repSeq', _foundUsers[index]['seq']);
+                                    prefs.setString(
+                                        'repCode', _foundUsers[index]['code']);
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(

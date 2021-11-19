@@ -16,7 +16,7 @@ class InvoiceDetail extends StatefulWidget {
 
 class _InvoiceDetailState extends State<InvoiceDetail> {
   late SharedPreferences prefs;
-  String invYear = ' ', invGroup = ' ', invNo = ' ';
+  String invYear = ' ', invGroup = ' ', invNo = ' ', repCode = ' ';
   String server = bwWebserviceUrl;
   bool checkDocList = false, checkCancel = false;
 
@@ -86,6 +86,7 @@ class _InvoiceDetailState extends State<InvoiceDetail> {
       invYear = (prefs.getString('invYear') ?? '-');
       invGroup = (prefs.getString('invGroup') ?? '-');
       invNo = (prefs.getString('invNo') ?? '-');
+      repCode = (prefs.getString('repCode') ?? '-');
       getDocInfo(invYear, invGroup, invNo);
     });
   }
@@ -156,7 +157,7 @@ class _InvoiceDetailState extends State<InvoiceDetail> {
                                 style: TextStyle(
                                   color:
                                       checkCancel ? Colors.red : Colors.white,
-                                  fontSize: 40.0,
+                                  fontSize: 30.0, //40.0,
                                   fontWeight: FontWeight.bold,
                                   decoration: checkCancel
                                       ? TextDecoration.lineThrough
@@ -289,6 +290,11 @@ class _InvoiceDetailState extends State<InvoiceDetail> {
                                                   _dtlInfo[index]['ship_unit'] +
                                                   ' ชิ้น')
                                       : _dtlInfo[index]['ship_unit'] + ' ชิ้น'),
+                                  style: TextStyle(
+                                      color:
+                                          _dtlInfo[index]['short_unit'] != '0'
+                                              ? Colors.red
+                                              : Colors.grey),
                                 )),
                             Expanded(
                                 flex: 1,
@@ -344,7 +350,8 @@ class _InvoiceDetailState extends State<InvoiceDetail> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('รายละเอียดใบส่งของ'),
+        //title: Text('รายละเอียดใบส่งของ'),
+        title: Text('รหัสสมาชิก ' + repCode),
         centerTitle: true,
       ),
       /*body: Center(

@@ -37,7 +37,9 @@ class _InvoiceMainState extends State<InvoiceMain> {
       "camp_code": "x",
       "qry": "x",
       "trans_year": "x",
-      "trans_group": "x"
+      "trans_group": "x",
+      "cnt_dtl": "x",
+      "seq": "x",
     },
   ];
 
@@ -85,7 +87,9 @@ class _InvoiceMainState extends State<InvoiceMain> {
         String campCode,
         String qry,
         String transYear,
-        String transGroup) {
+        String transGroup,
+        String cntDtl,
+        String seq) {
       if (docStatus == 'NORMAL') {
         checkCancel = false;
       } else {
@@ -102,11 +106,12 @@ class _InvoiceMainState extends State<InvoiceMain> {
       } else {
         checkSignPos = false;
       }
-      if (tmpCamp != campCode) {
+      /*if (tmpCamp != campCode) {
         cnt = cnt + 1;
         chkColor = cnt % 5;
         tmpCamp = campCode;
-      }
+      }*/
+      chkColor = int.parse(seq) % 5;
       if (chkColor == 1) {
         dispColor = Color(0xFF0080FF);
       } else if (chkColor == 2) {
@@ -255,15 +260,42 @@ class _InvoiceMainState extends State<InvoiceMain> {
                 ', invNo:' +
                 docNo);
             if (transGroup == '11') {
-              prefs.setString('invYear', transYear);
-              prefs.setString('invGroup', transGroup);
-              prefs.setString('invNo', docNo);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        InvoiceDetail()), //SalesRecordMain()),
-              );
+              if (int.parse(cntDtl) == 0) {
+                showDialog<Null>(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return SimpleDialog(
+                        title: const Text(
+                          'ไม่พบข้อมูลรายละเอียด!!!',
+                        ),
+                        children: <Widget>[
+                          SimpleDialogOption(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: Center(
+                              child: const Text('OK',
+                                  style: TextStyle(
+                                    fontSize: 20.0,
+                                    color: Colors.red,
+                                    fontWeight: FontWeight.bold,
+                                  )),
+                            ),
+                          ),
+                        ],
+                      );
+                    });
+              } else {
+                prefs.setString('invYear', transYear);
+                prefs.setString('invGroup', transGroup);
+                prefs.setString('invNo', docNo);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          InvoiceDetail()), //SalesRecordMain()),
+                );
+              }
             }
           },
         ),
@@ -292,7 +324,9 @@ class _InvoiceMainState extends State<InvoiceMain> {
                                 _allInfo[index]['camp_code'],
                                 _allInfo[index]['qry'],
                                 _allInfo[index]['trans_year'],
-                                _allInfo[index]['trans_group']),
+                                _allInfo[index]['trans_group'],
+                                _allInfo[index]['cnt_dtl'],
+                                _allInfo[index]['seq']),
                             elevation: 8.0,
                             shadowColor: Colors.black,
                           ),

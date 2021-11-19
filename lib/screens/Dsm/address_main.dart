@@ -25,7 +25,7 @@ class _AddressMainState extends State<AddressMain> {
   int cnt = 0, chkColor = 0;
   Color dispColor = Colors.grey;
   List<Map<String, dynamic>> _allInfo = [
-    {"delivery": "x", "register": "x"},
+    {"delivery": "x", "register": "x", "del_tel": "x", "reg_tel": "x"},
   ];
 
   Future<Null> getAddressInfo(String piRepSeq) async {
@@ -109,10 +109,37 @@ class _AddressMainState extends State<AddressMain> {
                                   bottom: 24.0,
                                   left: 8.0,
                                   right: 8.0),
-                              child: Text(
+                              /*child: Text(
                                 _allInfo[0]['delivery'],
                                 style: TextStyle(
                                     color: Colors.black, fontSize: 16.0),
+                              ),*/
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        _allInfo[0]['delivery'],
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 16.0),
+                                      ),
+                                      SizedBox(
+                                        height: 16.0,
+                                        width: 8.0,
+                                      ),
+                                      Text(
+                                        'โทรศัพท์ : ' + _allInfo[0]['del_tel'],
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 16.0),
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ),
                             ),
                           ),
@@ -172,10 +199,37 @@ class _AddressMainState extends State<AddressMain> {
                                   bottom: 24.0,
                                   left: 8.0,
                                   right: 8.0),
-                              child: Text(
-                                _allInfo[0]['register'],
+                              /*child: Text(
+                                _allInfo[0]['delivery'],
                                 style: TextStyle(
                                     color: Colors.black, fontSize: 16.0),
+                              ),*/
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        _allInfo[0]['register'],
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 16.0),
+                                      ),
+                                      SizedBox(
+                                        height: 16.0,
+                                        width: 8.0,
+                                      ),
+                                      Text(
+                                        'โทรศัพท์ : ' + _allInfo[0]['reg_tel'],
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 16.0),
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ),
                             ),
                           ),

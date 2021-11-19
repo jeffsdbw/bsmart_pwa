@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ui';
 
 import 'package:bsmart_pwa/utilities/constants.dart';
 import 'package:flutter/material.dart';
@@ -110,7 +111,7 @@ class _MemberMainState extends State<MemberMain> {
             Row(
               children: [
                 Expanded(
-                    flex: 1,
+                    flex: 2,
                     child: Container(
                       alignment: Alignment.center,
                       child: Icon(
@@ -120,7 +121,7 @@ class _MemberMainState extends State<MemberMain> {
                       ),
                     )),
                 Expanded(
-                    flex: 2,
+                    flex: 4,
                     child: Container(
                       alignment: Alignment.centerLeft,
                       child: Column(
@@ -129,7 +130,7 @@ class _MemberMainState extends State<MemberMain> {
                           Text(
                             _allInfo[0]['rep_code'],
                             style: TextStyle(
-                                fontSize: 35.0,
+                                fontSize: 32.0,
                                 color: Colors.amber,
                                 fontWeight: FontWeight.bold),
                           ),
@@ -140,7 +141,7 @@ class _MemberMainState extends State<MemberMain> {
                             '${_allInfo[0]['rep_name']} $dispNickName',
                             style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 20,
+                                fontSize: 16,
                                 fontWeight: FontWeight.bold),
                           ),
                         ],
@@ -327,8 +328,12 @@ class _MemberMainState extends State<MemberMain> {
                         ),
                       ),
                       title: Text(
-                        'เบอร์โทรศัพท์ : ' + _allInfo[0]['mobile_no'],
-                        textAlign: TextAlign.center,
+                        _allInfo[0]['mobile_no'],
+                        style: TextStyle(
+                            fontSize: 24.0,
+                            color: Colors.blue,
+                            fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.left,
                       ),
                       onTap: () {
                         launch("tel://029170000");
@@ -344,18 +349,103 @@ class _MemberMainState extends State<MemberMain> {
                     shadowColor: Colors.black,
                     child: yupinRegister
                         ? ListTile(
-                            leading: CircleAvatar(
-                              backgroundColor: Colors.white,
-                              radius: 20.0,
-                              child:
-                                  Image.asset('assets/images/yupin_logo.png'),
+                            leading: Image.asset(
+                              'assets/images/yupin_logo.png',
+                              //scale: 1.5,
                             ),
-                            title: Text(
+                            /*title: Text(
                               'สถานะยุพิน : ' +
                                   _allInfo[0]['yupin_status'] +
                                   ', Segment : ' +
                                   _allInfo[0]['yupin_segment'],
                               textAlign: TextAlign.center,
+                            ),*/
+                            title: Row(
+                              children: [
+                                Expanded(
+                                  flex: 1,
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        'Status',
+                                      ),
+                                      Container(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: Text(
+                                          _allInfo[0]['yupin_status'],
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        decoration: BoxDecoration(
+                                          color: Colors.blue,
+                                          borderRadius: BorderRadius.only(
+                                              topRight: Radius.circular(10.0),
+                                              bottomRight:
+                                                  Radius.circular(10.0),
+                                              topLeft: Radius.circular(10.0),
+                                              bottomLeft:
+                                                  Radius.circular(10.0)),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  /*child: Container(
+                                      width: 200.0,
+                                      //padding: EdgeInsets.all(8.0),
+                                      //color: Colors.blue,
+                                      child: Column(
+                                        children: [
+                                          Text('Status'),
+                                          Text(
+                                            _allInfo[0]['yupin_status'],
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                //fontSize: 16.0,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ],
+                                      ),
+                                      decoration: BoxDecoration(
+                                        color: Colors.blue,
+                                        borderRadius: BorderRadius.only(
+                                            topRight: Radius.circular(10.0),
+                                            bottomRight: Radius.circular(10.0),
+                                            topLeft: Radius.circular(10.0),
+                                            bottomLeft: Radius.circular(10.0)),
+                                      ),
+                                    )*/
+                                ),
+                                Expanded(
+                                  flex: 1,
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        'Segment',
+                                      ),
+                                      Container(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: Text(
+                                          _allInfo[0]['yupin_segment'],
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        decoration: BoxDecoration(
+                                          color: Colors.blue,
+                                          borderRadius: BorderRadius.only(
+                                              topRight: Radius.circular(10.0),
+                                              bottomRight:
+                                                  Radius.circular(10.0),
+                                              topLeft: Radius.circular(10.0),
+                                              bottomLeft:
+                                                  Radius.circular(10.0)),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
                             ),
                           )
                         : Text(' '),

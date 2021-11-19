@@ -5,6 +5,7 @@ import 'package:bsmart_pwa/screens/Dsm/others_info_main.dart';
 //import 'package:bsmart_pwa/screens/Dsm/receipt_main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RepInfoMain extends StatefulWidget {
   const RepInfoMain({Key? key}) : super(key: key);
@@ -14,8 +15,10 @@ class RepInfoMain extends StatefulWidget {
 }
 
 class _RepInfoMainState extends State<RepInfoMain> {
+  late SharedPreferences prefs;
   int _selectedIndex = 0;
   bool _isIos = false, _isIPhoneX = false, _checkIPhoneX = false;
+  String repCode = 'Member Information';
   List<Widget> _pageWidget = <Widget>[
     MemberMain(),
     InvoiceMain(),
@@ -71,6 +74,20 @@ class _RepInfoMainState extends State<RepInfoMain> {
   }
   */
 
+  Future<Null> getPrefs() async {
+    prefs = await SharedPreferences.getInstance();
+    setState(() {
+      repCode = (prefs.getString('repCode') ?? 'Member Information');
+    });
+  }
+
+  @override
+  initState() {
+    // at the beginning, all users are shown
+    getPrefs();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     if (_checkIPhoneX == false) {
@@ -90,7 +107,8 @@ class _RepInfoMainState extends State<RepInfoMain> {
               child: SafeArea(
                 child: Scaffold(
                   appBar: AppBar(
-                    title: Text('Member Information'),
+                    title: Text(
+                        'รหัสสมาชิก ' + repCode), //Text('Member Information'),
                     centerTitle: true,
                   ),
                   body: _pageWidget.elementAt(_selectedIndex),
@@ -108,7 +126,8 @@ class _RepInfoMainState extends State<RepInfoMain> {
         : SafeArea(
             child: Scaffold(
               appBar: AppBar(
-                title: Text('Member Information'),
+                title:
+                    Text('รหัสสมาชิก ' + repCode), //Text('Member Information'),
                 centerTitle: true,
               ),
               body: _pageWidget.elementAt(_selectedIndex),
